@@ -90,6 +90,10 @@ INSERT OR IGNORE INTO processed_lines(line_id, book_id, processed_at) VALUES (?,
 isLineProcessed:
 SELECT EXISTS(SELECT 1 FROM processed_lines WHERE line_id = ?);
 
+-- Look up only the current source page; do not load all resume IDs for a book.
+selectProcessedLineIds:
+SELECT line_id FROM processed_lines WHERE line_id IN ?;
+
 countProcessedLinesForBook:
 SELECT COUNT(*) FROM processed_lines WHERE book_id = ?;
 
